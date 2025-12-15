@@ -17,11 +17,17 @@ class CiudadSeeder extends Seeder
     {
         $fichero = fopen(Storage::path('municipios.csv'),'r');
         while(($datos=fgetcsv($fichero))!=null){
-            DB::table('ciudads')->insert([
+
+            Ciudad::create([
+                "cod_postal"=>$datos[0],
+                "nombre"=>$datos[1],
+                "cod_provincia"=>$datos[2]
+            ]);
+            /*DB::table('ciudads')->insert([
                 "cod_postal"=>$datos[0],
                     "nombre"=>$datos[1],
                     "cod_provincia"=>$datos[2]
-            ]);
+            ]);*/
         }
 
     }

@@ -14,6 +14,8 @@ class Ciudad extends Model
         "cod_provincia"
     ];
 
+    protected $primaryKey = "cod_postal";
+
     public function inmuebles():HasMany{
         return $this->hasMany(Inmueble::class,'cod_postal','cod_postal');
     }
