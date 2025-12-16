@@ -17,7 +17,11 @@ class PropietarioFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "nombre"=>fake()->name,
+            "telefono"=>fake()->phoneNumber(),
+            "direccion"=>fake()->address(),
+            "dni"=>fake()->numberBetween(10000000,99999999).fake()->randomLetter()
+
         ];
     }
 }

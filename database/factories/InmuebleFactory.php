@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Ciudad;
+use App\Models\Propietario;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,14 @@ class InmuebleFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "num_catastro"=>Ciudad::crearNumCatastroAleatorio(),
+            "direccion"=>fake()->address(),
+            "numero"=>fake()->numberBetween(0,500),
+            "bloque"=>fake()->randomLetter(),
+            "piso"=>fake()->numberBetween(1,100),
+            "puerta"=>fake()->randomLetter(),
+            "cod_postal"=>Ciudad::obtenerCodPostalAleatorio(),
+            "propietario_id"=>Propietario::factory()->create()
         ];
     }
 }

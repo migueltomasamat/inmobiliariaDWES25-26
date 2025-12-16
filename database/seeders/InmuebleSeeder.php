@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Inmueble;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,6 +13,6 @@ class InmuebleSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Inmueble::factory(5)->create();
     }
 }
