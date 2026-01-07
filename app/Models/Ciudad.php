@@ -30,6 +30,8 @@ class Ciudad extends Model
         return $finca.$hoja.$inmueble.$control;
     }
     public static function obtenerCodPostalAleatorio():int{
-        return 10421;
+
+            $ciudad=Ciudad::inRandomOrder()->first();
+            return $ciudad->cod_postal;
     }
 }

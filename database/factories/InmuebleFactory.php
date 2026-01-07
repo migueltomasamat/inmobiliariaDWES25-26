@@ -19,8 +19,8 @@ class InmuebleFactory extends Factory
     public function definition(): array
     {
         return [
-            "num_catastro"=>Ciudad::crearNumCatastroAleatorio(),
-            "direccion"=>fake()->address(),
+            "num_catastro"=>$this->faker->num_catastral(),
+            "direccion"=>fake()->streetName(),
             "numero"=>fake()->numberBetween(0,500),
             "bloque"=>fake()->randomLetter(),
             "piso"=>fake()->numberBetween(1,100),

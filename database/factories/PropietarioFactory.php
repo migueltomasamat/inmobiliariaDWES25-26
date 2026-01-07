@@ -16,11 +16,12 @@ class PropietarioFactory extends Factory
      */
     public function definition(): array
     {
+        $nombre = fake()->name;
         return [
-            "nombre"=>fake()->name,
+            "nombre"=>$nombre,
             "telefono"=>fake()->phoneNumber(),
             "direccion"=>fake()->address(),
-            "dni"=>fake()->numberBetween(10000000,99999999).fake()->randomLetter()
+            "dni"=>fake()->numberBetween(10000000,99999999).fake()->randomLetter(),
 
         ];
     }
