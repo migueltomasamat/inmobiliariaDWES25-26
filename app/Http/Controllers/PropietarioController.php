@@ -29,7 +29,11 @@ class PropietarioController extends Controller
      */
     public function store(StorePropietarioRequest $request)
     {
-        //
+        //Necesitamos asociar los datos que nos llegan en la request a una instacia de Propietario
+
+        //Necesitamos almacenar el propìetario en la base de datos
+
+        //Necesitamos devolver información al cliente
     }
 
     /**
@@ -37,7 +41,7 @@ class PropietarioController extends Controller
      */
     public function show(Propietario $propietario)
     {
-        //
+        return $propietario;
     }
 
     /**

@@ -2,7 +2,30 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CiudadController;
+use App\Http\Controllers\PropietarioController;
+use App\Http\Controllers\InmuebleController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
+
+Route::get('/ciudad', [CiudadController::class,'index']);
+
+/*Route::get('/propietario',[PropietarioController::class,'index']);
+Route::get('/propietario/{propietario}',[PropietarioController::class,'show']);
+Route::post('/propietario',[PropietarioController::class,'store']);
+Route::put('/propietario/{propietario}',[PropietarioController::class,'update']);
+Route::patch('/propietario/{propietario}',[PropietarioController::class,'update']);
+Route::delete('/propietario/{propietario}',[PropietarioController::class,'destroy']);*/
+
+Route::apiResource('propietario',PropietarioController::class);
+
+Route::apiResource('inmueble',InmuebleController::class);
+
+Route::get('/ciudad/provincia/{cod_provincia}',[CiudadController::class,'ciudadesPorProvincia']);
+
+
+Route::controller(PerfilController::class)->group(function(){
+    Route::get('perfil/{perfil}','show');
+});

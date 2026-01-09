@@ -16,4 +16,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 });
 
+//Route::get('/propietario/create',[])
+
 require __DIR__.'/settings.php';
