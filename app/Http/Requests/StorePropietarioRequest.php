@@ -11,7 +11,7 @@ class StorePropietarioRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,18 @@ class StorePropietarioRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "nombre"=>'required|string|max:255',
+            "dni"=>'required|string|max:9|regex:^\d{8}[A-Z]{1}^',
+            "telefono"=>'required|max:20',
+            "direccion"=>'required|string'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            "direccion.required" => "No me has pasado el campo direccion",
+            "direccion.string" => "El campo no es una cadena de caracteres",
         ];
     }
 }

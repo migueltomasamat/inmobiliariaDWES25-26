@@ -15,6 +15,8 @@ class Ciudad extends Model
         "cod_provincia"
     ];
 
+    protected $hidden = ['created_at','updated_at'];
+
     protected $primaryKey = "cod_postal";
 
     public function inmuebles():HasMany{

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PerfilController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CiudadController;
@@ -23,7 +24,7 @@ Route::apiResource('propietario',PropietarioController::class);
 
 Route::apiResource('inmueble',InmuebleController::class);
 
-Route::get('/ciudad/provincia/{cod_provincia}',[CiudadController::class,'ciudadesPorProvincia']);
+Route::post('/inmueble/{inmueble}/perfil',[InmuebleController::class,'attachPerfil']);
 
 
 Route::controller(PerfilController::class)->group(function(){

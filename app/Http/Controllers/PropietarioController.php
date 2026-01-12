@@ -29,11 +29,31 @@ class PropietarioController extends Controller
      */
     public function store(StorePropietarioRequest $request)
     {
+
         //Necesitamos asociar los datos que nos llegan en la request a una instacia de Propietario
+        $propietario = new Propietario();
+        $propietario->nombre=$request->nombre;
+        $propietario->direccion = $request->direccion;
+        $propietario->dni=$request->dni;
+        $propietario->telefono=$request->telefono;
+
 
         //Necesitamos almacenar el propìetario en la base de datos
+        if (!$propietario->save()){
+            return response([
+                "error"=>true,
+                "msg"=>"Ha habido un error al almacenar el propietario",
+                "code"=>500
+            ],500);
+        }else{
+            return response([
+                "error"=>false,
+                "msg"=>"Se ha guardado el propietarios",
+                "code"=>201
+            ],201);
+        }
 
-        //Necesitamos devolver información al cliente
+
     }
 
     /**
@@ -57,7 +77,24 @@ class PropietarioController extends Controller
      */
     public function update(UpdatePropietarioRequest $request, Propietario $propietario)
     {
-        //
+        $propietario->nombre=$request->nombre??$propietario->nombre;
+        $propietario->dni=$request->dni??$propietario->dni;
+        $propietario->direccion=$request->direccion??$propietario->direccion;
+        $propietario->telefono=$request->telefono??$propietario->telefono;
+
+        if (!$propietario->save()){
+            return response([
+                "error"=>true,
+                "msg"=>"Ha habido un error al modificar el propietario",
+                "code"=>500
+            ],500);
+        }else{
+            return response([
+                "error"=>false,
+                "msg"=>"Se ha modificado el propietario",
+                "code"=>200
+            ],200);
+        }
     }
 
     /**
@@ -65,6 +102,19 @@ class PropietarioController extends Controller
      */
     public function destroy(Propietario $propietario)
     {
-        //
+        if (!$propietario->delete()){
+            return response([
+                "error"=>true,
+                "msg"=>"Ha habido un error al borrar el propietario",
+                "code"=>500
+            ],500);
+        }else{
+            return response([
+                "error"=>false,
+                "msg"=>"Se ha borrado el propietario",
+                "code"=>200
+            ],200);
+        }
+
     }
 }

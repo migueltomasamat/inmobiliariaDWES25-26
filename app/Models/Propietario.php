@@ -11,6 +11,9 @@ class Propietario extends Model
     /** @use HasFactory<\Database\Factories\PropietarioFactory> */
     use HasFactory;
 
+
+    protected $hidden = ['created_at','updated_at'];
+
     public function inmuebles():HasMany{
         return $this->hasMany(Inmueble::class);
     }

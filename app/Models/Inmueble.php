@@ -13,6 +13,9 @@ class Inmueble extends Model
     /** @use HasFactory<\Database\Factories\InmuebleFactory> */
     use HasFactory;
 
+    protected $hidden = ['created_at','updated_at','propietario_id',];
+    protected $with = ['propietario','perfil'];
+
     public function ciudad():BelongsTo{
         return $this->belongsTo(Ciudad::class,'cod_postal','cod_postal');
     }

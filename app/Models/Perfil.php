@@ -11,6 +11,7 @@ class Perfil extends Model
     /** @use HasFactory<\Database\Factories\PerfilFactory> */
     use HasFactory;
 
+    protected $hidden = ['created_at','updated_at','inmueble_id'];
     public function inmueble():BelongsTo{
         return $this->belongsTo(Inmueble::class);
     }

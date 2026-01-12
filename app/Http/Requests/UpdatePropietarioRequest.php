@@ -11,7 +11,7 @@ class UpdatePropietarioRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class UpdatePropietarioRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "nombre"=>'string|max:255',
+            "dni"=>'string|max:9|regex:^\d{8}[A-Z]{1}^',
+            "telefono"=>'max:20',
+            "direccion"=>'string|max:255'
         ];
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreInmuebleRequest;
 use App\Http\Requests\UpdateInmuebleRequest;
 use App\Models\Inmueble;
+use Illuminate\Http\Request;
 
 class InmuebleController extends Controller
 {
@@ -37,7 +38,7 @@ class InmuebleController extends Controller
      */
     public function show(Inmueble $inmueble)
     {
-        //
+        return $inmueble;
     }
 
     /**
@@ -53,7 +54,7 @@ class InmuebleController extends Controller
      */
     public function update(UpdateInmuebleRequest $request, Inmueble $inmueble)
     {
-        //
+        $inmueble->perfil=$request->perfil;
     }
 
     /**
@@ -62,5 +63,11 @@ class InmuebleController extends Controller
     public function destroy(Inmueble $inmueble)
     {
         //
+    }
+
+    public function attachPerfil(Request $request,Inmueble $inmueble)
+    {
+        $inmueble->perfil=$request->perfil;
+        $inmueble->save();
     }
 }
