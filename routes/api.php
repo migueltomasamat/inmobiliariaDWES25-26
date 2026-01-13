@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PerfilController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CiudadController;
@@ -30,3 +31,5 @@ Route::post('/inmueble/{inmueble}/perfil',[InmuebleController::class,'attachPerf
 Route::controller(PerfilController::class)->group(function(){
     Route::get('perfil/{perfil}','show');
 });
+
+Route::apiResource('user',UserController::class);

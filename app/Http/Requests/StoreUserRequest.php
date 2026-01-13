@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateEmpleadoRequest extends FormRequest
+class StoreUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,13 @@ class UpdateEmpleadoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "name"=>'required|string|max:255',
+            "password"=>'required|string|max:255',
+            "email"=>'required|unique:users|max:255'
         ];
     }
+
+    public function messages()
+    {
+        return parent::messages();     }
 }

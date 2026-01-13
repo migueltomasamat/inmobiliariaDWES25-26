@@ -26,6 +26,7 @@ class User extends Authenticatable
         'password',
     ];
 
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -36,6 +37,7 @@ class User extends Authenticatable
         'two_factor_secret',
         'two_factor_recovery_codes',
         'remember_token',
+        'created_at','updated_at','email_verified_at','two_factor_confirmed_at'
     ];
 
     /**

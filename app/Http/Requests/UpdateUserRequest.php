@@ -4,14 +4,16 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateEmpleadoRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
+
+        //user()->can('update user')
     }
 
     /**
@@ -22,7 +24,10 @@ class UpdateEmpleadoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+
+                "name"=>'string|max:255',
+                "password"=>'string|max:255',
+                "email"=>'unique:users|max:255'
         ];
     }
 }
