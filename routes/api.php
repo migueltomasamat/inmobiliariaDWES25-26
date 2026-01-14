@@ -32,4 +32,12 @@ Route::controller(PerfilController::class)->group(function(){
     Route::get('perfil/{perfil}','show');
 });
 
-Route::apiResource('user',UserController::class);
+
+
+Route::post('/user/login',[UserController::class,'verify']);
+Route::post('/user/logout',[UserController::class,'logout'])->middleware('auth:sanctum');
+
+
+Route::middleware('auth:sanctum')->group(function(){
+        Route::apiResource('user',UserController::class);
+});

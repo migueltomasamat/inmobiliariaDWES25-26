@@ -23,6 +23,9 @@ return new class extends Migration
 
             $table->foreign('cod_postal')->references('cod_postal')->on('ciudads');
             //$table->foreignId('ciudad_id')->constrained();
+            /*$table->bigInteger('propietario_id')->nullable();
+            $table->foreign('propietario_id')->references('id')->on('propietarios');*/
+
             $table->foreignId('propietario_id')->constrained();
 
             $table->timestamps();

@@ -6,6 +6,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -62,5 +63,48 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    public function verify(Request $request){
+        Auth::attempt([
+            "email"=>$request->email,
+            "password"=>$request->password
+        ]);
+
+        $usuario = Auth::user();
+
+        if(!$usuario){
+            return response([
+                "error"=>true,
+                "message"=>'No se ha podido autenticar el usuario',
+                "code"=>403
+            ],403);
+        }else{
+            $token = $usuario->createToken('auth_token')->plainTextToken;
+            return response([
+                "error"=>false,
+                "message"=>'Usuario autenticado correctamente',
+                "token"=>$token,
+                "type_token"=>"Bearer",
+                "code"=>200
+            ],200);
+        }
+    }
+
+    public function logout(){
+
+        if (!Auth::user()->tokens()->delete()) {
+            return response([
+                "error"=>true,
+                "message"=>'No se ha podido hacer logout del usuario',
+                "code"=>403
+            ],403);
+        }else{
+            return response([
+                "error"=>false,
+                "message"=>'Cierre de session correcto',
+                "code"=>200
+            ],200);
+        }
     }
 }
