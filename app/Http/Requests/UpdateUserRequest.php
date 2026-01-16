@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateUserRequest extends FormRequest
 {
@@ -11,7 +12,8 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        $user=Auth::user();
+        return $user->hasPermissionTo('editar usuario');
 
         //user()->can('update user')
     }

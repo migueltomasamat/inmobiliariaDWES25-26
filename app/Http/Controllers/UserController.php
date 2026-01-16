@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginUserRequest;
+use App\Http\Requests\ReadAllUsersRequest;
+use App\Http\Requests\ShowUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
@@ -13,9 +16,17 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(ReadAllUsersRequest $request)
     {
-        return User::all();
+        if (Auth::user()->hasRole('Admin')){
+            return User::all();
+        }else{
+            return response([
+                "error"=>true,
+                "message"=>"no se tiene permisos para ver estos datos"
+            ],403);
+        }
+
     }
 
     /**
@@ -31,7 +42,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show(ShowUserRequest $request, User $user)
     {
         return $user;
     }
@@ -65,7 +76,7 @@ class UserController extends Controller
         //
     }
 
-    public function verify(Request $request){
+    public function verify(LoginUserRequest $request){
         Auth::attempt([
             "email"=>$request->email,
             "password"=>$request->password

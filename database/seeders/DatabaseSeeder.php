@@ -26,6 +26,8 @@ class DatabaseSeeder extends Seeder
         );*/
         $this->call([
             CiudadSeeder::class,
+            PermissionSeeder::class,
+            RoleSeeder::class,
             UserSeeder::class,
             InmuebleSeeder::class
         ]);

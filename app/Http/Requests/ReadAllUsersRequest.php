@@ -3,17 +3,20 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 
-class StoreUserRequest extends FormRequest
+class ReadAllUsersRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        //dump(Auth::user());
-        return true;
+        if (\Auth::user()->hasRole('Admin')){
+            return true;
+        }else{
+            return false;
+        }
+
     }
 
     /**
@@ -24,13 +27,7 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name"=>'required|string|max:255',
-            "password"=>'required|string|max:255',
-            "email"=>'required|unique:users|max:255'
+            //
         ];
     }
-
-    public function messages()
-    {
-        return parent::messages();     }
 }

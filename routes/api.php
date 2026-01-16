@@ -39,5 +39,11 @@ Route::post('/user/logout',[UserController::class,'logout'])->middleware('auth:s
 
 
 Route::middleware('auth:sanctum')->group(function(){
-        Route::apiResource('user',UserController::class);
+    /*Route::apiResource('user',UserController::class);*/
+    /*Route::get('/propietario',[PropietarioController::class,'index']);*/
+    Route::get('/user/{user}',[UserController::class,'show']);
+/*Route::post('/propietario',[PropietarioController::class,'store']);
+Route::put('/propietario/{propietario}',[PropietarioController::class,'update']);
+Route::patch('/propietario/{propietario}',[PropietarioController::class,'update']);
+Route::delete('/propietario/{propietario}',[PropietarioController::class,'destroy']);*/
 });

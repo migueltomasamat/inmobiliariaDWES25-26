@@ -45,39 +45,39 @@ class RoleSeeder extends Seeder
             'crear propietario'
         ]);
 
-        $usuario = Role::findByName('propietario');
+        $usuario = Role::findByName('Propietario');
         $usuario->givePermissionTo([
             'ver inmueble',
             'crear inmueble',
-            'modificar inmueble',
+            'editar inmueble',
             'borrar inmueble',
             'ver perfil',
             'crear perfil',
-            'modificar perfil',
+            'editar perfil',
             'borrar perfil',
             'ver propietario',
-            'modificar propietario',
+            'editar propietario',
             'borrar propietario',
             'ver usuario',
             'crear usuario',
-            'modificar usuario',
+            'editar usuario',
             'borrar usuario'
         ]);
 
 
-        $usuario = Role::findByName('agente');
+        $usuario = Role::findByName('Agente');
         $usuario->givePermissionTo([
             'ver inmueble',
             'crear inmueble',
-            'modificar inmueble',
+            'editar inmueble',
             'borrar inmueble',
             'ver perfil',
             'crear perfil',
-            'modificar perfil',
+            'editar perfil',
             'borrar perfil',
             'ver propietario',
             'crear propietario',
-            'modificar propietario',
+            'editar propietario',
             'borrar propietario',
             'ver usuario',
         ]);
