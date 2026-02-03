@@ -12,7 +12,13 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+//Rutas referentes a ciudad
 Route::get('/ciudad', [CiudadController::class,'index']);
+Route::get('/ciudad/{ciudad}', [CiudadController::class,'show']);
+
+
+//Rutas relacionadas con el inmueble
+Route::get('/inmueble',[InmuebleController::class,'index']);
 
 /*Route::get('/propietario',[PropietarioController::class,'index']);
 Route::get('/propietario/{propietario}',[PropietarioController::class,'show']);
