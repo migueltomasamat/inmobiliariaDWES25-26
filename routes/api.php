@@ -29,9 +29,9 @@ Route::delete('/propietario/{propietario}',[PropietarioController::class,'destro
 
 Route::apiResource('propietario',PropietarioController::class);
 
-Route::post('/inmueble',[InmuebleController::class,'store'])->middleware(\App\Http\Middleware\AddCoordenadasInmueble::class);
+Route::post('/inmueble',[InmuebleController::class,'store'])->middleware('coordenadas');
 
-Route::apiResource('inmueble',InmuebleController::class);
+//Route::apiResource('inmueble',InmuebleController::class);
 
 Route::post('/inmueble/{inmueble}/perfil',[InmuebleController::class,'attachPerfil']);
 
