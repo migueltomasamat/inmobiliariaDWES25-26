@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\InmuebleController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -15,6 +16,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
 });
+Route::get('inmuebles', [InmuebleController::class, 'index'])->name('inmueblesIndex');
+
+Route::delete('/inmueble/{inmueble}', [InmuebleController::class, 'destroy'])->name('inmuebleDelete');
 
 //Route::get('/propietario/create',[])
 

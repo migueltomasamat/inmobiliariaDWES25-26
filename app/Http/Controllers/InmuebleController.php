@@ -6,6 +6,7 @@ use App\Http\Requests\StoreInmuebleRequest;
 use App\Http\Requests\UpdateInmuebleRequest;
 use App\Models\Inmueble;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class InmuebleController extends Controller
 {
@@ -14,7 +15,8 @@ class InmuebleController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('inmuebles/inmuebles',["inmuebles"=>Inmueble::all(),
+            "total_inmuebles"=>Inmueble::count()]);
     }
 
     /**
