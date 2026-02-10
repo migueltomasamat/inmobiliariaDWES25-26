@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreInmuebleRequest;
 use App\Http\Requests\UpdateInmuebleRequest;
 use App\Models\Inmueble;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -15,8 +16,13 @@ class InmuebleController extends Controller
      */
     public function index()
     {
-        return Inertia::render('inmuebles/inmuebles',["inmuebles"=>Inmueble::all(),
-            "total_inmuebles"=>Inmueble::count()]);
+        return Inertia::render('inmuebles/inmuebles',[
+            "inmuebles"=>Inmueble::latest()->take(5)->get(),
+            "estadisticas"=>[
+                "total_inmuebles"=>Inmueble::count(),
+                "inmuebles_ultimo_mes"=>Inmueble::where('created_at','>',Carbon::now()->subMonth())->count()
+            ]
+        ]);
     }
 
     /**
