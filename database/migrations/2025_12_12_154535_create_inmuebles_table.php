@@ -19,6 +19,8 @@ return new class extends Migration
             $table->char('bloque',1)->nullable();
             $table->integer('piso')->nullable()->default(1);
             $table->char('puerta')->nullable()->default('A');
+            $table->float('longitud')->nullable();
+            $table->float('latitud')->nullable();
             $table->integer('cod_postal');
 
             $table->foreign('cod_postal')->references('cod_postal')->on('ciudads');

@@ -25,6 +25,8 @@ class InmuebleFactory extends Factory
             "bloque"=>fake()->randomLetter(),
             "piso"=>fake()->numberBetween(1,100),
             "puerta"=>fake()->randomLetter(),
+            "longitud"=>fake()->longitude(),
+            "latitud"=>fake()->latitude(),
             "cod_postal"=>Ciudad::obtenerCodPostalAleatorio(),
             "propietario_id"=>Propietario::factory()->create()
         ];

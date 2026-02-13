@@ -11,7 +11,7 @@ class StoreInmuebleRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,14 @@ class StoreInmuebleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'num_catastro'=>'required|string|max:20|regex:^\d{7}[A-Z0-9]{7}\d{4}[A-Z]{2}^',
+            'direccion'=>'required|string|max:255',
+            'numero'=>'required|integer',
+            'bloque'=>'alpha_num',
+            'piso'=>'integer',
+            'puerta'=>'alpha',
+            'cod_postal'=>"required|integer|exists:ciudads",
+            'propietario_id'=>'required|integer|exists:propietarios,id'
         ];
     }
 }

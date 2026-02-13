@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateInmuebleRequest;
 use App\Models\Inmueble;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\In;
 use Inertia\Inertia;
 
 class InmuebleController extends Controller
@@ -38,7 +39,25 @@ class InmuebleController extends Controller
      */
     public function store(StoreInmuebleRequest $request)
     {
-        //
+        $inmueble = Inmueble::create($request->all('num_catastro','numero','puerta','piso','bloque','direccion','cod_postal','propietario_id','latitud','longitud'));
+
+        if ($inmueble){
+            return response([
+                "error"=>false,
+                "message"=>"Inmueble creado correctamente",
+                "data"=>$inmueble,
+                "code"=>201
+            ]);
+        }else{
+            return response([
+                "error"=>true,
+                "message"=>"No se ha podido crear el Inmueble",
+                "code"=>400
+            ]);
+        }
+
+
+
     }
 
     /**
@@ -70,7 +89,7 @@ class InmuebleController extends Controller
      */
     public function destroy(Inmueble $inmueble)
     {
-        //
+        dd($inmueble);
     }
 
     public function attachPerfil(Request $request,Inmueble $inmueble)

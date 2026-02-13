@@ -29,7 +29,7 @@ Route::delete('/propietario/{propietario}',[PropietarioController::class,'destro
 
 Route::apiResource('propietario',PropietarioController::class);
 
-Route::post('/inmueble',[InmuebleController::class,'store'])->middleware('coordenadas');
+
 
 //Route::apiResource('inmueble',InmuebleController::class);
 
@@ -50,6 +50,7 @@ Route::middleware('auth:sanctum')->group(function(){
     /*Route::apiResource('user',UserController::class);*/
     /*Route::get('/propietario',[PropietarioController::class,'index']);*/
     Route::get('/user/{user}',[UserController::class,'show']);
+    Route::post('/inmueble',[InmuebleController::class,'store'])->middleware('coordenadas');
 /*Route::post('/propietario',[PropietarioController::class,'store']);
 Route::put('/propietario/{propietario}',[PropietarioController::class,'update']);
 Route::patch('/propietario/{propietario}',[PropietarioController::class,'update']);

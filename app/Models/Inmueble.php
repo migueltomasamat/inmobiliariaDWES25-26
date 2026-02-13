@@ -13,6 +13,7 @@ class Inmueble extends Model
     /** @use HasFactory<\Database\Factories\InmuebleFactory> */
     use HasFactory;
 
+    protected $fillable = ['num_catastro','direccion','bloque','piso','puerta','numero','cod_postal','propietario_id','latitud','longitud'];
     protected $hidden = ['created_at','updated_at','propietario_id',];
     protected $with = ['propietario','perfil', 'ciudad'];
 

@@ -20,17 +20,19 @@ class AddCoordenadasInmueble
     {
         $response = Http::get('http://ovc.catastro.meh.es/OVCServWeb/OVCWcfCallejero/COVCCoordenadas.svc/json/Consulta_CPMRC?RefCat='.Str::substr($request->num_catastro,0,14));
 
-        //var_dump($response);
+        $response=$response->json();
         if (isset($response['Consulta_CPMRCResult']['lerr'])){
-            return abort(401,$response['Consulta_CPMRCResult']['lerr']['des']);
+            return response([
+                "error"=>true,
+                "message"=>$response['Consulta_CPMRCResult']['lerr'][0]['des']
+            ],400);
+        }else{
+
+            $request->merge([
+                "longitud"=>$response['Consulta_CPMRCResult']['coordenadas']['coord'][0]['geo']['xcen'],
+                "latitud"=>$response['Consulta_CPMRCResult']['coordenadas']['coord'][0]['geo']['ycen']
+            ]);
+            return $next($request);
         }
-
-        $datosPosicionInmueble=$response->json();
-
-        $request->merge([
-            "longitud"=>$datosPosicionInmueble['Consulta_CPMRCResult']['coordenadas']['coord'][0]['geo']['xcen'],
-            "latitud"=>$datosPosicionInmueble['Consulta_CPMRCResult']['coordenadas']['coord'][0]['geo']['ycen']
-        ]);
-        return $next($request);
     }
 }

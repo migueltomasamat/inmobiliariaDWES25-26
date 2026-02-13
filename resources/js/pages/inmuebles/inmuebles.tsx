@@ -1,6 +1,6 @@
 import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
 import AppLayout from '@/layouts/app-layout';
-import { inmueblesIndex,inmuebleDelete } from '@/routes';
+import { inmuebleDelete, inmueblesIndex } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
 import {
@@ -12,6 +12,14 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
 import { ButtonGroup } from "@/components/ui/button-group"
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge"
@@ -25,6 +33,7 @@ import {
     CardTitle,
     CardAction,
 } from '@/components/ui/card';
+import { destroy } from '@/actions/App/Http/Controllers/InmuebleController';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -53,6 +62,16 @@ interface estadisticas{
     total_inmuebles:number,
     inmuebles_ultimo_mes:number
 }
+
+    const handleDelete = (inmueble:Inmueble) => {
+        inmuble.preventDefault();
+
+        Inertia.post(`/deleteStudent/${deleteData.student_id}`, {
+            _method: "delete",
+            ...deleteData,
+        });
+    };
+
 
 
 export default function Dashboard({ inmuebles,estadisticas }: { inmuebles: Inmueble[],estadisticas:estadisticas}) {
@@ -155,12 +174,28 @@ export default function Dashboard({ inmuebles,estadisticas }: { inmuebles: Inmue
                                             <Button size="icon">
                                                 <SquarePenIcon />
                                             </Button>
-                                            <Button
-                                                variant="destructive"
-                                                size="icon"
-                                            >
-                                                <Trash2Icon />
-                                            </Button>
+                                            <Dialog>
+                                                <DialogTrigger asChild>
+                                                    <Button variant="destructive" size="icon">
+                                                    <Trash2Icon />
+
+                                                </Button>
+                                                </DialogTrigger>
+                                                <DialogContent className="flex-row justify-content-end">
+                                                    <DialogHeader>
+                                                        <DialogTitle>¿Estás seguro de querer borrar el inmueble {inmueble.id}?</DialogTitle>
+                                                        <DialogDescription>
+                                                            Esta acción no se podrá deshacer
+                                                        </DialogDescription>
+                                                    </DialogHeader>
+                                                    <ButtonGroup className="align-self-sm-end">
+                                                        <Button size="lg" >Cancelar</Button>
+                                                        <Button size="lg" variant={'destructive'} onClick={()=>handleDelete(inmueble)} >Eliminar</Button>
+                                                    </ButtonGroup>
+
+                                                </DialogContent>
+                                            </Dialog>
+
                                         </ButtonGroup>
                                     </TableCell>
                                 </TableRow>
