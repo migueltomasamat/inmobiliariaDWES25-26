@@ -7,10 +7,11 @@ use Illuminate\Http\JsonResponse;
 
 class MiRespuesta implements Responsable
 {
+    protected bool $error;
     protected int $httpCode;
     protected array $data;
     protected string $errorMessage;
-    public function __construct(int $httpCode, array $data = [], string $errorMessage = '')
+    public function __construct(int $httpCode, array $data = [], bool $error=false,string $errorMessage = '')
     {
         if ($httpCode<200 || $httpCode>600) {
             throw new \RuntimeException($httpCode . ' no es un código http válido');
@@ -18,6 +19,7 @@ class MiRespuesta implements Responsable
 
         $this->httpCode = $httpCode;
         $this->data = $data;
+        $this->error = $error;
         $this->errorMessage = $errorMessage;
     }
 
@@ -46,10 +48,25 @@ class MiRespuesta implements Responsable
     {
         return new static(201, $data);
     }
+    public static function badRequest(string $errorMessage = "Datos proporcionados incorrectos"){
+        return new static(400,error: true,errorMessage: $errorMessage);
+    }
+
+    public static function autorizationFail(string $errorMessage = "No autorizado, token invalido"){
+        return new static(401,error: true,errorMessage: $errorMessage);
+    }
+
+    public static function notAutorized(string $errorMessage = "Sin permisos para acceder a este apartado"){
+        return new static(403,error: true,errorMessage: $errorMessage);
+    }
 
     public static function notFound(string $errorMessage = "Elemento no encontrado")
     {
-        return new static(404, errorMessage: $errorMessage);
+        return new static(404, error: true,errorMessage: $errorMessage);
+    }
+
+    public static function serverError(string $errorMessage = "Error de servidor"){
+        return new static (500,error: true,errorMessage: $errorMessage);
     }
 
 }

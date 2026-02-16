@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Inmueble\DeleteInmuebleRequest;
 use App\Http\Requests\StoreInmuebleRequest;
 use App\Http\Requests\UpdateInmuebleRequest;
+use App\Http\Responses\MiRespuesta;
 use App\Models\Inmueble;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -87,9 +89,15 @@ class InmuebleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Inmueble $inmueble)
+    public function destroy(DeleteInmuebleRequest $request,Inmueble $inmueble)
     {
-        dd($inmueble);
+        if (isset($inmueble->perfil)){
+            $inmueble->perfil->delete();
+        }
+        $inmueble->deleteOrFail();
+        return MiRespuesta::ok([
+            "message"=>"Inmueble ".$inmueble->id." borrado correctamente"]);
+
     }
 
     public function attachPerfil(Request $request,Inmueble $inmueble)

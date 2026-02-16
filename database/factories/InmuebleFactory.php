@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Ciudad;
-use App\Models\Propietario;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -28,7 +28,7 @@ class InmuebleFactory extends Factory
             "longitud"=>fake()->longitude(),
             "latitud"=>fake()->latitude(),
             "cod_postal"=>Ciudad::obtenerCodPostalAleatorio(),
-            "propietario_id"=>Propietario::factory()->create()
+            "user_id"=>User::factory()->create()
         ];
     }
 }

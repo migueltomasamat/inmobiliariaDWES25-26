@@ -22,7 +22,7 @@ class Inmueble extends Model
     }
 
     public function propietario():BelongsTo{
-        return $this->belongsTo(Propietario::class);
+        return $this->belongsTo(User::class);
     }
 
     public function perfil():HasOne{

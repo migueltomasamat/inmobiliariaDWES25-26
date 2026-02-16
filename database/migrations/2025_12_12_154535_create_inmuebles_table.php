@@ -28,7 +28,7 @@ return new class extends Migration
             /*$table->bigInteger('propietario_id')->nullable();
             $table->foreign('propietario_id')->references('id')->on('propietarios');*/
 
-            $table->foreignId('propietario_id')->constrained();
+            $table->foreignId('user_id')->constrained();
 
             $table->timestamps();
         });
