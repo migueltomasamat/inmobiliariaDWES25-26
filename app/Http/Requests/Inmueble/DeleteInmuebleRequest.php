@@ -16,11 +16,7 @@ class DeleteInmuebleRequest extends FormRequest
         if($user->hasRole('Admin')){
             return true;
         }else{
-            //dd($user->inmuebles->toArray());
-            $inmueblesUsuario = array_filter($user->inmuebles->toArray(),function($inmueble){
-                return $inmueble['id']==$this->inmueble->id;
-            });
-            if($user->hasPermissionTo('borrar inmueble') && $inmueblesUsuario!=null){
+            if($user->hasPermissionTo('borrar inmueble') || $this->inmueble->propietario->id===$user->id){
                 return true;
             }else{
                 return false;

@@ -65,4 +65,15 @@ class User extends Authenticatable
     public function inmuebles():HasMany{
         return $this->HasMany(Inmueble::class);
     }
+
+    public function esPropietarioDeInmueble(Inmueble $inmuebleABuscar):bool{
+        $inmueblesUsuario = array_filter($this->inmuebles->toArray(),function($inmuebleDelUsuario) use ($inmuebleABuscar) {
+            return $inmuebleDelUsuario['id']==$inmuebleABuscar->id;
+        });
+        if ($inmueblesUsuario){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
