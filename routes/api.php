@@ -38,6 +38,7 @@ Route::post('/inmueble/{inmueble}/perfil',[InmuebleController::class,'attachPerf
 
 Route::controller(PerfilController::class)->group(function(){
     Route::get('perfil/{perfil}','show');
+    Route::post('/inmueble/{inmueble}/perfil',[PerfilController::class,'store']);
 });
 
 

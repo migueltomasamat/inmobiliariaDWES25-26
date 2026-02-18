@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePerfilRequest;
 use App\Http\Requests\UpdatePerfilRequest;
+use App\Models\Inmueble;
 use App\Models\Perfil;
+use Illuminate\Support\Facades\Storage;
 
 class PerfilController extends Controller
 {
@@ -27,9 +29,11 @@ class PerfilController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePerfilRequest $request)
+    public function store(StorePerfilRequest $request,Inmueble $inmueble)
     {
-        //
+        Storage::disk('public')->putFileAs($inmueble->num_catastro,$request->file('imagen'),'imagen1.png');
+
+
     }
 
     /**

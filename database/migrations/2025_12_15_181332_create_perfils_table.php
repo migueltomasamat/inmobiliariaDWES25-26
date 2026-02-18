@@ -17,6 +17,7 @@ return new class extends Migration
             $table->boolean('ascensor')->default('false');
             $table->enum('clase_energetica',['A','B','C','D','E','F','G']);
             $table->integer('metros');
+            $table->string('imagen')->nullable();
             $table->foreignId('inmueble_id')->unique()->constrained();
             $table->timestamps();
         });

@@ -20,7 +20,8 @@ class PerfilFactory extends Factory
             "tipo"=>$this->faker->randomElement(['piso','casa','adosado','local','nave','terreno']),
             "ascensor"=>$this->faker->boolean(20),
             "clase_energetica"=>$this->faker->randomElement(['A','B','C','D','E','F','G']),
-            "metros"=>$this->faker->numberBetween(20,15000)
+            "metros"=>$this->faker->numberBetween(20,15000),
+            "imagen"=>$this->faker->image
         ];
     }
 }
