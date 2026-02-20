@@ -31,7 +31,31 @@ class PerfilController extends Controller
      */
     public function store(StorePerfilRequest $request,Inmueble $inmueble)
     {
-        Storage::disk('public')->putFileAs($inmueble->num_catastro,$request->file('imagen'),'imagen1.png');
+        if(isset($request->imagen)){
+            //Creamos un directorio dentro del apartado público con el número de catastro
+            Storage::disk('public')->makeDirectory($inmueble->num_catastro);
+
+            //Comprobamos el número de imagenes que existen en el directorio
+            $ficheros=Storage::disk('public')->files($inmueble->num_catastro);
+
+            //Calculamos el siguiente fichero que toca almacenar
+            $sufijo = count($ficheros)+1;
+
+            //Guardamos el fichero dentro del directorio que acabamos de crear
+            $ruta=Storage::disk('public')->putFileAs($inmueble->num_catastro,$request->file('imagen'),'imagen'.$sufijo.'.png');
+
+            $url = Storage::url($ruta);
+        }
+
+        $perfil = new Perfil();
+        $perfil->tipo = $request->tipo??'piso';
+        $perfil->ascensor = $request->ascensor??false;
+        $perfil->metros = $request->metros??0;
+        $perfil->clase_energetica = $request->clase_energetica??null;
+        $perfil->imagen = $url??null;
+        $perfil->inmueble_id = $inmueble->id;
+
+        $perfil->save();
 
 
     }
