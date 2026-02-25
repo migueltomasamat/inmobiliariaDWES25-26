@@ -16,9 +16,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
 });
-Route::get('inmuebles', [InmuebleController::class, 'index'])->name('inmueblesIndex');
+Route::get('inmuebles', [InmuebleController::class, 'index'])->name('inmueble.index');
+Route::get('/inmueble/create',[InmuebleController::class,'create'])->name('inmueble.create');
 
-Route::delete('/inmueble/{inmueble}', [InmuebleController::class, 'destroy'])->name('inmuebleDelete');
+Route::delete('/inmueble/{inmueble}', [InmuebleController::class, 'destroy'])->name('inmueble.destroy');
 
 //Route::get('/propietario/create',[])
 

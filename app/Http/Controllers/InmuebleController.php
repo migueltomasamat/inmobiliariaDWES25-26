@@ -33,7 +33,9 @@ class InmuebleController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('inmuebles/create',[
+            "inmueble"=>new Inmueble()
+        ]);
     }
 
     /**
@@ -95,8 +97,7 @@ class InmuebleController extends Controller
             $inmueble->perfil->delete();
         }
         $inmueble->deleteOrFail();
-        return MiRespuesta::ok([
-            "message"=>"Inmueble ".$inmueble->id." borrado correctamente"]);
+        return \Redirect::back()->with('success', 'Inmueble eliminado correctamente');
 
     }
 

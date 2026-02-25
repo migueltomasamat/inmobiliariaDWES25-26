@@ -1,8 +1,8 @@
 import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
 import AppLayout from '@/layouts/app-layout';
-import { inmuebleDelete, inmueblesIndex } from '@/routes';
+import { index,create } from '@/routes/inmueble';
 import { type BreadcrumbItem } from '@/types';
-import { Head } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import {
     Table,
     TableBody,
@@ -33,12 +33,12 @@ import {
     CardTitle,
     CardAction,
 } from '@/components/ui/card';
-import { destroy } from '@/actions/App/Http/Controllers/InmuebleController';
+
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Inmuebles',
-        href: inmueblesIndex().url,
+        href: index().url,
     },
 ];
 
@@ -63,18 +63,19 @@ interface estadisticas{
     inmuebles_ultimo_mes:number
 }
 
-    const handleDelete = (inmueble:Inmueble) => {
-        inmuble.preventDefault();
-
-        Inertia.post(`/deleteStudent/${deleteData.student_id}`, {
-            _method: "delete",
-            ...deleteData,
-        });
-    };
 
 
 
 export default function Dashboard({ inmuebles,estadisticas }: { inmuebles: Inmueble[],estadisticas:estadisticas}) {
+
+    const handleDelete = (id:number)=>{
+        if (confirm('Quieres borrar el inmueble '+id)){
+            router.delete(`/inmueble/${id}`);
+        }
+    }
+
+
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Inmuebles" />
@@ -136,6 +137,13 @@ export default function Dashboard({ inmuebles,estadisticas }: { inmuebles: Inmue
                         <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
                     </div>
                 </div>
+                <div className="relative overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
+                    <Link href={create().url}>
+                        <Button className='mb-4 h-full '>
+                            Crear Inmueble
+                        </Button>
+                    </Link>
+                </div>
                 <div className="relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border">
                     <Table>
                         <TableCaption>
@@ -174,28 +182,11 @@ export default function Dashboard({ inmuebles,estadisticas }: { inmuebles: Inmue
                                             <Button size="icon">
                                                 <SquarePenIcon />
                                             </Button>
-                                            <Dialog>
-                                                <DialogTrigger asChild>
-                                                    <Button variant="destructive" size="icon">
+                                                <Button variant="destructive" size="icon"
+                                                onClick={()=>handleDelete(inmueble.id)}>
                                                     <Trash2Icon />
 
                                                 </Button>
-                                                </DialogTrigger>
-                                                <DialogContent className="flex-row justify-content-end">
-                                                    <DialogHeader>
-                                                        <DialogTitle>¿Estás seguro de querer borrar el inmueble {inmueble.id}?</DialogTitle>
-                                                        <DialogDescription>
-                                                            Esta acción no se podrá deshacer
-                                                        </DialogDescription>
-                                                    </DialogHeader>
-                                                    <ButtonGroup className="align-self-sm-end">
-                                                        <Button size="lg" >Cancelar</Button>
-                                                        <Button size="lg" variant={'destructive'} onClick={()=>handleDelete(inmueble)} >Eliminar</Button>
-                                                    </ButtonGroup>
-
-                                                </DialogContent>
-                                            </Dialog>
-
                                         </ButtonGroup>
                                     </TableCell>
                                 </TableRow>

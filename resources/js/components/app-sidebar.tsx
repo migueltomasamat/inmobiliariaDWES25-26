@@ -10,7 +10,8 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { dashboard, inmueblesIndex } from '@/routes';
+import { dashboard } from '@/routes';
+import {index} from '@/routes/inmueble';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
 import { BookOpen, Folder, LayoutGrid, Building } from 'lucide-react';
@@ -24,7 +25,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Inmuebles',
-        href: inmueblesIndex(),
+        href: index(),
         icon: Building,
     },
 ];
