@@ -6,6 +6,7 @@ use App\Http\Requests\Inmueble\DeleteInmuebleRequest;
 use App\Http\Requests\StoreInmuebleRequest;
 use App\Http\Requests\UpdateInmuebleRequest;
 use App\Http\Responses\MiRespuesta;
+use App\Models\Ciudad;
 use App\Models\Inmueble;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -34,7 +35,8 @@ class InmuebleController extends Controller
     public function create()
     {
         return Inertia::render('inmuebles/create',[
-            "inmueble"=>new Inmueble()
+            "inmueble"=>new Inmueble(),
+            "ciudades"=>Ciudad::all()
         ]);
     }
 
@@ -43,7 +45,19 @@ class InmuebleController extends Controller
      */
     public function store(StoreInmuebleRequest $request)
     {
-        $inmueble = Inmueble::create($request->all('num_catastro','numero','puerta','piso','bloque','direccion','cod_postal','propietario_id','latitud','longitud'));
+
+        $inmueble = Inmueble::create($request->all('num_catastro','numero','puerta','piso','bloque','direccion','cod_postal','user_id','latitud','longitud'));
+
+        return Inertia::render('inmuebles/inmuebles',[
+            "inmuebles"=>Inmueble::latest()->take(5)->get(),
+            "estadisticas"=>[
+                "total_inmuebles"=>Inmueble::count(),
+                "inmuebles_ultimo_mes"=>Inmueble::where('created_at','>',Carbon::now()->subMonth())->count()
+            ]
+        ]);
+
+
+        /*$inmueble = Inmueble::create($request->all('num_catastro','numero','puerta','piso','bloque','direccion','cod_postal','propietario_id','latitud','longitud'));
 
         if ($inmueble){
             return response([
@@ -58,7 +72,7 @@ class InmuebleController extends Controller
                 "message"=>"No se ha podido crear el Inmueble",
                 "code"=>400
             ]);
-        }
+        }*/
 
 
 
@@ -77,7 +91,9 @@ class InmuebleController extends Controller
      */
     public function edit(Inmueble $inmueble)
     {
-        //
+        return Inertia::render('inmuebles/edit',[
+            "inmueble"=>$inmueble
+        ]);
     }
 
     /**

@@ -1,7 +1,7 @@
 import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
 import AppLayout from '@/layouts/app-layout';
 import { index,create } from '@/routes/inmueble';
-import { type BreadcrumbItem } from '@/types';
+import { type BreadcrumbItem, Ciudad, Inmueble } from '@/types';
 import { Head, Link, router } from '@inertiajs/react';
 import {
     Table,
@@ -41,23 +41,6 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: index().url,
     },
 ];
-
-interface Ciudad{
-    cod_postal:number,
-    nombre: string,
-    cod_provincia:number
-}
-
-interface Inmueble{
-    id:number,
-    num_catastro:string,
-    direccion:string,
-    numero:number,
-    bloque:string,
-    piso:number,
-    puerta:string,
-    ciudad: Ciudad
-}
 interface estadisticas{
     total_inmuebles:number,
     inmuebles_ultimo_mes:number
@@ -139,7 +122,7 @@ export default function Dashboard({ inmuebles,estadisticas }: { inmuebles: Inmue
                 </div>
                 <div className="relative overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                     <Link href={create().url}>
-                        <Button className='mb-4 h-full '>
+                        <Button className='mb-4'>
                             Crear Inmueble
                         </Button>
                     </Link>

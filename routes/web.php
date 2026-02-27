@@ -18,9 +18,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 Route::get('inmuebles', [InmuebleController::class, 'index'])->name('inmueble.index');
 Route::get('/inmueble/create',[InmuebleController::class,'create'])->name('inmueble.create');
-
+Route::post('/inmueble',[InmuebleController::class,'store'])->name('inmueble.store');
+Route::get('/inmueble/{inmueble}/edit',[InmuebleController::class,'edit'])->name('inmueble.edit');
+Route::put('/inmueble/{inmueble}',[InmuebleController::class,'update'])->name('inmueble.update');
 Route::delete('/inmueble/{inmueble}', [InmuebleController::class, 'destroy'])->name('inmueble.destroy');
-
-//Route::get('/propietario/create',[])
 
 require __DIR__.'/settings.php';

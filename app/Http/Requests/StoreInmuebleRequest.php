@@ -28,8 +28,8 @@ class StoreInmuebleRequest extends FormRequest
             'bloque'=>'alpha_num',
             'piso'=>'integer',
             'puerta'=>'alpha',
-            'cod_postal'=>"required|integer|exists:ciudads",
-            'propietario_id'=>'required|integer|exists:propietarios,id'
+            'cod_postal'=>"required|exists:ciudads",
+            'user_id'=>'required|integer|exists:users,id'
         ];
     }
 }

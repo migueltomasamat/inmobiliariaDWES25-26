@@ -41,3 +41,20 @@ export interface User {
     updated_at: string;
     [key: string]: unknown; // This allows for additional properties...
 }
+
+export interface Ciudad {
+    cod_postal:number,
+    nombre: string,
+    cod_provincia:number
+}
+
+export interface Inmueble {
+    id: number;
+    num_catastro: string;
+    direccion: string;
+    numero: number;
+    bloque: string;
+    piso: number;
+    puerta: string;
+    ciudad: Ciudad;
+}
