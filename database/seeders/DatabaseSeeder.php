@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Ciudad;
+use App\Models\Provincia;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -25,6 +26,7 @@ class DatabaseSeeder extends Seeder
             ]
         );*/
         $this->call([
+            ProvinciaSeeder::class,
             CiudadSeeder::class,
             PermissionSeeder::class,
             RoleSeeder::class,

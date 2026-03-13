@@ -9,31 +9,27 @@ use Illuminate\Support\Str;
 class Ciudad extends Model
 {
     //
+    public $incrementing = false;
     protected $fillable = [
         "cod_postal",
+        "id_municipio",
         "nombre",
-        "cod_provincia"
+        "provincia_id"
     ];
 
     protected $hidden = ['created_at','updated_at'];
 
-    protected $primaryKey = "cod_postal";
+    protected $primaryKey = ["cod_postal",'id_municipio'];
 
     public function inmuebles():HasMany{
-        return $this->hasMany(Inmueble::class,'cod_postal','cod_postal');
+        return $this->hasMany(Inmueble::class,['cod_postal','id_municipio'],['cod_postal','id_municipio']);
     }
 
-    public static function crearNumCatastroAleatorio():string{
-        $finca=mt_rand(0,9999999);
-        $hoja=Str::random(7);
-        $inmueble=mt_rand(0,9999);
-        $control=Str::random(2);
-
-        return $finca.$hoja.$inmueble.$control;
-    }
-    public static function obtenerCodPostalAleatorio():int{
+    public static function obtenerCodPostalAleatorio():array{
 
             $ciudad=Ciudad::inRandomOrder()->first();
-            return $ciudad->cod_postal;
+            $retorno []=$ciudad->attributes['cod_postal'];
+            $retorno []=$ciudad->attributes['id_municipio'];
+            return $retorno;
     }
 }

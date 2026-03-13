@@ -21,9 +21,10 @@ return new class extends Migration
             $table->char('puerta')->nullable()->default('A');
             $table->float('longitud')->nullable();
             $table->float('latitud')->nullable();
-            $table->integer('cod_postal');
+            $table->string('cod_postal');
+            $table->string('id_municipio');
 
-            $table->foreign('cod_postal')->references('cod_postal')->on('ciudads');
+            $table->foreign(['cod_postal','id_municipio'])->references(['cod_postal','id_municipio'])->on('ciudads');
             //$table->foreignId('ciudad_id')->constrained();
             /*$table->bigInteger('propietario_id')->nullable();
             $table->foreign('propietario_id')->references('id')->on('propietarios');*/

@@ -13,12 +13,12 @@ class Inmueble extends Model
     /** @use HasFactory<\Database\Factories\InmuebleFactory> */
     use HasFactory;
 
-    protected $fillable = ['num_catastro','direccion','bloque','piso','puerta','numero','cod_postal','user_id','latitud','longitud'];
+    protected $fillable = ['num_catastro','direccion','bloque','piso','puerta','numero','cod_postal','id_municipio','user_id','latitud','longitud'];
     protected $hidden = ['created_at','updated_at','user_id',];
     protected $with = ['propietario','perfil', 'ciudad'];
 
     public function ciudad():BelongsTo{
-        return $this->belongsTo(Ciudad::class,'cod_postal','cod_postal');
+        return $this->belongsTo(Ciudad::class,['cod_postal','id_municipio'],['cod_postal','id_municipio']);
     }
 
     public function propietario():BelongsTo{

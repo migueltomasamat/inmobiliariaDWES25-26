@@ -18,6 +18,8 @@ class InmuebleFactory extends Factory
      */
     public function definition(): array
     {
+
+        $ciudadAleatoria=Ciudad::obtenerCodPostalAleatorio();
         return [
             "num_catastro"=>$this->faker->num_catastral(),
             "direccion"=>fake()->streetName(),
@@ -27,7 +29,8 @@ class InmuebleFactory extends Factory
             "puerta"=>fake()->randomLetter(),
             "longitud"=>fake()->longitude(),
             "latitud"=>fake()->latitude(),
-            "cod_postal"=>Ciudad::obtenerCodPostalAleatorio(),
+            "cod_postal"=>$ciudadAleatoria[0],
+            "id_municipio"=>$ciudadAleatoria[1],
             "user_id"=>User::factory()->create()
         ];
     }
